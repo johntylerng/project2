@@ -30,7 +30,7 @@ def train_model():
     
     return 'success'
 
-@app.route('/train_endpoint_without_file', methods=['POST'])
+@app.route('/train_endpoint_without_file', methods=['GET'])
 def train_model_without_file():
     print('training model...wait')
     df = pd.read_csv(TRAINING_FILE_PATH)
