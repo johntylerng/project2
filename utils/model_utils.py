@@ -16,40 +16,7 @@ MODEL_FILE_NAME = '%s/model.pkl' %(MODEL_DIRECTORY)
 DATA_FILE_PATH = 'data/'
 MODEL_COLUMNS_FILE_NAME = '%s/model_columns.pkl' % MODEL_DIRECTORY
 
-def extract_hyphen(row):
-    if row['world_rank'].isdigit():
-        return int(float(row['world_rank']))
-    else:
-        value_list = row['world_rank'].replace('-', ' ').split(' ')
-        value_list = list(map(int, value_list))
-        return int(np.mean(value_list))
-            
 
-
-
-def assign_missing_values_tuition(row):
-    if row['tuition_fee']>0:
-        return row['tuition_fee']
-    if (row['country'] == 'United Kingdom') and (row['tuition_fee']==0):
-        return uk_mean_tf
-    elif (row['country'] == 'United States of America') and (row['tuition_fee']==0):
-        return us_mean
-    elif (row['country'] == 'Canada') and (row['tuition_fee']==0):
-        return us_mean_tf
-    else:
-        return uk_mean_tf
-    
-def assign_missing_values_salary(row):
-    if row['median_salary']>0:
-        return row['median_salary']
-    if (row['country'] == 'United Kingdom') and (row['median_salary']==0):
-        return uk_mean_ms
-    elif (row['country'] == 'United States of America') and (row['median_salary']==0):
-        return us_mean
-    elif (row['country'] == 'Canada') and (row['median_salary']==0):
-        return us_mean_ms
-    else:
-        return uk_mean_ms
 
 
 
@@ -116,3 +83,38 @@ def predict(df,model):
 def update(df, model):
     print('enter update')
     return
+
+
+def extract_hyphen(row):
+    if row['world_rank'].isdigit():
+        return int(float(row['world_rank']))
+    else:
+        value_list = row['world_rank'].replace('-', ' ').split(' ')
+        value_list = list(map(int, value_list))
+        return int(np.mean(value_list))
+            
+
+def assign_missing_values_tuition(row):
+    if row['tuition_fee']>0:
+        return row['tuition_fee']
+    if (row['country'] == 'United Kingdom') and (row['tuition_fee']==0):
+        return uk_mean_tf
+    elif (row['country'] == 'United States of America') and (row['tuition_fee']==0):
+        return us_mean
+    elif (row['country'] == 'Canada') and (row['tuition_fee']==0):
+        return us_mean_tf
+    else:
+        return uk_mean_tf
+    
+def assign_missing_values_salary(row):
+    if row['median_salary']>0:
+        return row['median_salary']
+    if (row['country'] == 'United Kingdom') and (row['median_salary']==0):
+        return uk_mean_ms
+    elif (row['country'] == 'United States of America') and (row['median_salary']==0):
+        return us_mean
+    elif (row['country'] == 'Canada') and (row['median_salary']==0):
+        return us_mean_ms
+    else:
+        return uk_mean_ms
+
