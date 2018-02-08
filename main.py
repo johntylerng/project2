@@ -12,9 +12,11 @@ import traceback
 from utils import model_utils
 from flask import Flask
 from sklearn.externals import joblib
+import pandas as pd
 
 app = Flask(__name__)
 
+TRAINING_FILE_PATH = 'data/university_data_2016.csv'
 model = None
 
 @app.route('/test_endpoint', methods=['GET'])
@@ -25,6 +27,17 @@ def test_connection():
 @app.route('/train_endpoint', methods=['POST'])
 def train_model():
     print('training model...wait')
+    
+    return 'success'
+
+@app.route('/train_endpoint_without_file', methods=['POST'])
+def train_model_without_file():
+    print('training model...wait')
+    df = pd.read_csv(TRAINING_FILE_PATH)
+    global model_columns, model
+    model_columns, model = model_utils.train(df)
+    joblib.dump(model_columns, model_utils.MODEL_COLUMNS_FILE_NAME)
+    joblib.dump(model, model_utils.MODEL_FILE_NAME)
     
     return 'success'
 
