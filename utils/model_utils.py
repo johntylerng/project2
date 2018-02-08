@@ -11,7 +11,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 
-MODEL_DIR = 'model'
+MODEL_DIRECTORY = 'model'
 MODEL_FILE_NAME = '%s/model.pkl' %(MODEL_DIR)
 DATA_FILE_PATH = 'data/'
 MODEL_COLUMNS_FILE_NAME = '%s/model_columns.pkl' % MODEL_DIRECTORY
@@ -100,14 +100,14 @@ def train(raw_data):
                                                             test_size=0.25, random_state=0)
     
     rf_model = RandomForestClassifier(max_features='auto', min_samples_leaf=20, n_estimators=10)
+    start = time.time() 
     rf_model.fit(X_train, y_train)
-
-
+    model_columns = list(features_names)
     
+    print('Trained in %.1f seconds' % (time.time() - start))
+    print('Model's validation score: %s' % model.score(X_validate, y_validate))
     
-    
-    
-    return 'train'
+    return model_columns, model
 
 def predict(df,model):
     print('enter predict')
