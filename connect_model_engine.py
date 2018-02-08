@@ -66,7 +66,7 @@ def train_model():
 def predict():
     print("predicting")
     global list
-    test_data_2= generate_test_data(raw_data,list,4)
+    test_data_2= generate_test_data(df,list,4)
     r= requests.post(API_HOST+PREDICT_API ,json=test_data_2)
     
     if r.status_code == 200:
