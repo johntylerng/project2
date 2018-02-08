@@ -54,7 +54,7 @@ def train(raw_data):
     
     weight_bins = [12213.999, 30495.769, 38787.259,197400.0]
     group_names = ['low', 'good', 'excellent']
-    raw_data['salary_bins'] = pd.qcut(raw_data['median_salary'],weight_bins,\
+    raw_data['salary_bins'] = pd.cut(raw_data['median_salary'],weight_bins,\
                                   labels=group_names)
     raw_data.country = raw_data.country.astype('category')
     raw_data['country_cat'] = raw_data['country'].cat.codes
