@@ -50,6 +50,8 @@ def train(raw_data):
     print('us_mean_tf>',us_mean_tf)
     print('uk_mean_tf>',uk_mean_tf)
     
+    print(raw_data.sample(2))
+    
     
     raw_data['salary_bins'] = pd.qcut(raw_data['median_salary'],
                                  q=3,
