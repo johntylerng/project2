@@ -11,6 +11,7 @@ import shutil
 import traceback
 from utils import model_utils
 from flask import Flask
+from sklearn.externals import joblib
 
 app = Flask(__name__)
 
