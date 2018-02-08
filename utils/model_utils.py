@@ -9,7 +9,7 @@ import time
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
 
 MODEL_DIRECTORY = 'model'
 MODEL_FILE_NAME = '%s/model.pkl' %(MODEL_DIRECTORY)
@@ -45,12 +45,12 @@ def train(raw_data):
     us_mean_ms= filtered_data2_us['median_salary'].mean()
     raw_data['median_salary'] = raw_data.apply(assign_missing_values_salary,axis=1)
     
-    print('us_mean_ms>',us_mean_ms)
-    print('uk_mean_ms>',uk_mean_ms)
-    print('us_mean_tf>',us_mean_tf)
-    print('uk_mean_tf>',uk_mean_tf)
+#    print('us_mean_ms>',us_mean_ms)
+#    print('uk_mean_ms>',uk_mean_ms)
+#    print('us_mean_tf>',us_mean_tf)
+#    print('uk_mean_tf>',uk_mean_tf)
     
-    print(raw_data.head(2))
+#    print(raw_data.head(2))
     
     weight_bins = [12213.999, 30495.769, 38787.259,197400.0]
     group_names = ['low', 'good', 'excellent']
@@ -68,6 +68,13 @@ def train(raw_data):
     X = np.array(X)
     y = raw_data.salary_bins
     y = np.array(y)
+    
+    
+    print(X[:3,:])
+    print(y[:20])
+    
+    
+    
     np.random.seed(42)
     shuffle_index = np.random.permutation(raw_data.shape[0])
     X, y= X[shuffle_index],y[shuffle_index]
@@ -77,9 +84,10 @@ def train(raw_data):
     X_train, X_validate, y_train, y_validate = train_test_split(X_train_validate,y_train_validate,\
                                                             test_size=0.25, random_state=0)
     
-    rf_model = RandomForestClassifier(max_features='auto', min_samples_leaf=20, n_estimators=10)
+    model = DecisionTreeClassifier(min_samples_leaf=5)
+    model.fit(X_train,y_train)
     start = time.time() 
-    rf_model.fit(X_train, y_train)
+    model.fit(X_train, y_train)
     model_columns = list(features_names)
     
     print('Trained in %.1f seconds' % (time.time() - start))
