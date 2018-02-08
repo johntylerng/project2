@@ -91,7 +91,7 @@ def train(raw_data):
     model.fit(X_train,y_train)
     start = time.time() 
     model.fit(X_train, y_train)
-    model_columns = list(features_name)
+    model_columns = list(X.columns)
     
     print('Trained in %.1f seconds' % (time.time() - start))
     print('Model  validation score: %s' % model.score(X_validate, y_validate))
@@ -190,8 +190,8 @@ def transform(raw_data):
     X = raw_data.drop(['world_rank','university_name', 'country', 'total_score',\
                   'student_staff_ratio','international_students','female_male_ratio',\
                   'year','median_salary','salary_bins'], axis=1)
-    features_name = X.columns
-    print('features in X:',X.columns)
+    #features_name = X.columns
+    #print('features in X:',X.columns)
     X = np.array(X)
     y = raw_data.salary_bins
     y = np.array(y)
