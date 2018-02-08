@@ -38,8 +38,8 @@ def train_model_without_file():
     df = pd.read_csv(TRAINING_FILE_PATH)
     global model_columns, model
     model_columns, model = model_utils.train(df)
-    joblib.dump(model_columns, model_utils.MODEL_COLUMNS_FILE_NAME)
-    joblib.dump(model, model_utils.MODEL_FILE_NAME)
+    #joblib.dump(model_columns, model_utils.MODEL_COLUMNS_FILE_NAME)
+    #joblib.dump(model, model_utils.MODEL_FILE_NAME)
     
     return 'success'
 
