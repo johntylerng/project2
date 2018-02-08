@@ -100,9 +100,9 @@ def train(raw_data):
 
 def predict(df,model):
 
-    print(df)
+    #print(df)
     predictions = model.predict(df).tolist()
-    predictions = [int(prediction) for prediction in predictions]
+    #predictions = [int(prediction) for prediction in predictions]
 
     return {'predictions': predictions}
     
