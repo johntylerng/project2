@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import SGDClassifier
 
 MODEL_DIRECTORY = 'model'
 MODEL_FILE_NAME = '%s/model.pkl' %(MODEL_DIRECTORY)
@@ -87,7 +88,8 @@ def train(raw_data):
     X_train, X_validate, y_train, y_validate = train_test_split(X_train_validate,y_train_validate,\
                                                             test_size=0.25, random_state=0)
     
-    model = DecisionTreeClassifier(min_samples_leaf=5)
+    #model = DecisionTreeClassifier(min_samples_leaf=5)
+    model = SGDClassifier()
     model.fit(X_train,y_train)
     start = time.time() 
     model.fit(X_train, y_train)
@@ -109,7 +111,12 @@ def predict(df,model):
 
 def update(df, model):
     print('enter update')
-    return
+    X,y,features_name = transform(raw_data)
+    
+    np.random.seed(42)
+    model.partialfit(X,y)
+    
+    return model
 
 
 def extract_hyphen(row):

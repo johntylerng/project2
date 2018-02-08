@@ -18,6 +18,7 @@ PREDICT_API = '/predict'
 TRAIN_API = '/train_endpoint'
 TRAIN_MODEL_NO_FILE_API = '/train_endpoint_without_file'
 TRAINING_FILE_PATH = 'data/university_data_2016.csv'
+UPDATE_MODEL_API = '/update_model'
 
 
 df= pd.read_csv(TRAINING_FILE_PATH)
@@ -95,6 +96,16 @@ def predict():
     print("predicting")
     
     r= requests.post(API_HOST+PREDICT_API ,json=TEST_DATA)
+    
+    if r.status_code == 200:
+        print(r.text)
+    else:
+        print("Status code indicates a problem:", r.status_code)
+        
+def update_model_with_new_data():
+    print("Sending new data to train model...")
+    
+    r = requests.post(API_HOST + UPDATE_MODEL_API,json=NEW_TRAINING_DATA)
     
     if r.status_code == 200:
         print(r.text)
