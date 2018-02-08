@@ -47,7 +47,7 @@ def train(raw_data):
     
     raw_data['salary_bins'] = pd.qcut(raw_data['median_salary'],
                                  q=3,
-                                 labels=["low","good","excellent"])
+                                 labels=["low","good","excellent"],duplicates='drop')
     raw_data.country = raw_data.country.astype('category')
     raw_data['country_cat'] = raw_data['country'].cat.codes
     
