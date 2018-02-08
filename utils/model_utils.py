@@ -99,11 +99,8 @@ def train(raw_data):
     return model_columns, model
 
 def predict(df,model):
-    X_test, y, _ = transform(df)
-    y_actual = y
 
-    predictions = model.predict(X_test)
-    print("Random Forest Classifier's score:",np.mean(y_actual==y_prediction))
+    predictions = model.predict(df)
     predictions = [int(prediction) for prediction in predictions]
 
     return {'predictions': predictions}
@@ -157,6 +154,7 @@ def assign_salary_band(row):
     else:
         return 'excellent'
     
+
 def transform(raw_data):
     raw_data['revised_world_rank'] = raw_data.apply(extract_hyphen,axis=1)
     for feature in ['income','total_score','num_students',\
