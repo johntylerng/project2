@@ -52,10 +52,12 @@ def train(raw_data):
     
 #    print(raw_data.head(2))
     
-    weight_bins = [12213.999, 30495.769, 38787.259,197400.0]
-    group_names = ['low', 'good', 'excellent']
-    raw_data['salary_bins'] = pd.cut(raw_data['median_salary'],weight_bins,\
-                                  labels=group_names)
+#    weight_bins = [12213.999, 30495.769, 38787.259,197400.0]
+#    group_names = ['low', 'good', 'excellent']
+#    raw_data['salary_bins'] = pd.cut(raw_data['median_salary'],weight_bins,\
+#                                  labels=group_names)
+    
+    raw_data['salary_bins'] = raw_data.apply(assign_salary_band,axis=1)
     raw_data.country = raw_data.country.astype('category')
     raw_data['country_cat'] = raw_data['country'].cat.codes
     
@@ -140,4 +142,12 @@ def assign_missing_values_salary(row):
         return us_mean_ms
     else:
         return uk_mean_ms
+    
+def assign_salary_band(row):
+    if row['median_salary'] < 30495.769:
+        return 'low'
+    elif row['median_salary'] < 38787.259:
+        return 'good'
+    else:
+        return 'excellent'
 
