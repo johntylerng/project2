@@ -60,23 +60,23 @@ def train(raw_data):
 #    raw_data['country_cat'] = raw_data['country'].cat.codes
 #    
 #    print('empty>',raw_data.isnull().any())
-    raw_data = transform(raw_data)
     
-    X = raw_data.drop(['world_rank','university_name', 'country', 'total_score',\
-                  'student_staff_ratio','international_students','female_male_ratio',\
-                  'year','median_salary','salary_bins'], axis=1)
+    
+#    X = raw_data.drop(['world_rank','university_name', 'country', 'total_score',\
+#                  'student_staff_ratio','international_students','female_male_ratio',\
+#                  'year','median_salary','salary_bins'], axis=1)
+    
+#    features_name = X.columns
+#    print('features in X:',X.columns)
+#    X = np.array(X)
+#    y = raw_data.salary_bins
+#    y = np.array(y)
+#    
+#    
+#    print(X[:3,:])
+#    print(y[:20])
 
-    features_name = X.columns
-    print('features in X:',X.columns)
-    X = np.array(X)
-    y = raw_data.salary_bins
-    y = np.array(y)
-    
-    
-    print(X[:3,:])
-    print(y[:20])
-    
-    
+    X,y = transform(raw_data)
     
     np.random.seed(42)
     shuffle_index = np.random.permutation(raw_data.shape[0])
@@ -99,6 +99,7 @@ def train(raw_data):
     return model_columns, model
 
 def predict(df,model):
+    X,raw_data = transform(df)
     print('enter predict')
     return
 
@@ -185,5 +186,19 @@ def transform(raw_data):
     raw_data['salary_bins'] = raw_data.apply(assign_salary_band,axis=1)
     raw_data.country = raw_data.country.astype('category')
     raw_data['country_cat'] = raw_data['country'].cat.codes
-    return raw_data
+    
+    X = raw_data.drop(['world_rank','university_name', 'country', 'total_score',\
+                  'student_staff_ratio','international_students','female_male_ratio',\
+                  'year','median_salary','salary_bins'], axis=1)
+    features_name = X.columns
+    print('features in X:',X.columns)
+    X = np.array(X)
+    y = raw_data.salary_bins
+    y = np.array(y)
+    
+    
+#    print(X[:3,:])
+#    print(y[:20])
+    
+    return X, y
 

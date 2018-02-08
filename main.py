@@ -59,18 +59,8 @@ def predict():
     if model:
         try:
             input_df =pd.DataFrame(request.json)
+            
 
-            column_names= input_df.columns[:]
-            print(column_names)
-            for name in column_names:
-                print(name)
-                input_df[name] = input_df[name].astype('category')
-                input_df[name+"-cat"] = input_df[name].cat.codes
-            X = input_df.drop(column_names, axis=1)
-            #features_names= data.columns[1:]
-            #X= input_df.drop('class-cat',axis=1)
-            X=np.array(X)
-            print(X[:1,:])
             predictions = model_utils.predict(X, model, model_columns)
             return jsonify(predictions)
         except Exception as e:
