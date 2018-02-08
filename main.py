@@ -13,6 +13,7 @@ from utils import model_utils
 from flask import Flask
 from sklearn.externals import joblib
 import pandas as pd
+import pickle
 
 app = Flask(__name__)
 
@@ -40,6 +41,7 @@ def train_model_without_file():
     model_columns, model = model_utils.train(df)
     #joblib.dump(model_columns, model_utils.MODEL_COLUMNS_FILE_NAME)
     #joblib.dump(model, model_utils.MODEL_FILE_NAME)
+    pickle.dump(model, open(model_utils.MODEL_FILE_NAME, 'wb'))
     
     return 'success'
 
