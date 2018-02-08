@@ -55,7 +55,7 @@ def assign_missing_values_salary(row):
 
 
 def train(raw_data):
-    print("Training data sample:\n", df.head(2))
+    print("Training data sample:\n", raw_data.head(2))
     raw_data['revised_world_rank'] = raw_data.apply(extract_hyphen,axis=1)
     for feature in ['income','total_score','num_students',\
                     'international_students','student_staff_ratio']:
