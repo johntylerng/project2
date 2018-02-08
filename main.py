@@ -10,7 +10,7 @@ import os
 import shutil
 import traceback
 from utils import model_utils
-from flask import Flask
+from flask import Flask,request, jsonify
 from sklearn.externals import joblib
 import pandas as pd
 import pickle
@@ -30,6 +30,13 @@ def test_connection():
 @app.route('/train_endpoint', methods=['POST'])
 def train_model():
     print('training model...wait')
+    try:
+        df= pd.DataFrame(request.json)
+    except Exception as e:
+        return jsonify({'error': str(e), 'trace': traceback.format_exc()})
+    
+    global model_columns, model
+    model_columns, model = model_utils.train(df)
     
     return 'success'
 
@@ -44,6 +51,7 @@ def train_model_without_file():
     pickle.dump(model, open(model_utils.MODEL_FILE_NAME, 'wb'))
     
     return 'success'
+
 
 @app.route('/predict',methods=['POST'])
 def predict():
