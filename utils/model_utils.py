@@ -117,7 +117,7 @@ def assign_missing_values_salary(row):
     if (row['country'] == 'United Kingdom') and (row['median_salary']==0):
         return uk_mean_ms
     elif (row['country'] == 'United States of America') and (row['median_salary']==0):
-        return us_mean
+        return us_mean_ms
     elif (row['country'] == 'Canada') and (row['median_salary']==0):
         return us_mean_ms
     else:
