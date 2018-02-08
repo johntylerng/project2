@@ -92,7 +92,7 @@ def train(raw_data):
     model.fit(X_train,y_train)
     start = time.time() 
     model.fit(X_train, y_train)
-    model_columns = list(features_names)
+    model_columns = list(features_name)
     
     print('Trained in %.1f seconds' % (time.time() - start))
     print('Model  validation score: %s' % model.score(X_validate, y_validate))
