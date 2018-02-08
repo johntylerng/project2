@@ -16,7 +16,10 @@ MODEL_FILE_NAME = '%s/model.pkl' %(MODEL_DIRECTORY)
 DATA_FILE_PATH = 'data/'
 MODEL_COLUMNS_FILE_NAME = '%s/model_columns.pkl' % MODEL_DIRECTORY
 
-
+uk_mean_tf=0
+us_mean_tf=0
+uk_mean_ms=0
+us_mean_ms=0
 
 
 
@@ -95,18 +98,20 @@ def extract_hyphen(row):
             
 
 def assign_missing_values_tuition(row):
+    global uk_mean_tf, us_mean_tf
     if row['tuition_fee']>0:
         return row['tuition_fee']
     if (row['country'] == 'United Kingdom') and (row['tuition_fee']==0):
         return uk_mean_tf
     elif (row['country'] == 'United States of America') and (row['tuition_fee']==0):
-        return us_mean
+        return us_mean_tf
     elif (row['country'] == 'Canada') and (row['tuition_fee']==0):
         return us_mean_tf
     else:
         return uk_mean_tf
     
 def assign_missing_values_salary(row):
+    global uk_mean_ms, us_mean_ms
     if row['median_salary']>0:
         return row['median_salary']
     if (row['country'] == 'United Kingdom') and (row['median_salary']==0):

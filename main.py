@@ -18,6 +18,8 @@ app = Flask(__name__)
 
 TRAINING_FILE_PATH = 'data/university_data_2016.csv'
 model = None
+model_columns = None
+
 
 @app.route('/test_endpoint', methods=['GET'])
 def test_connection():
