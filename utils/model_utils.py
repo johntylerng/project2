@@ -45,6 +45,12 @@ def train(raw_data):
     us_mean_ms= filtered_data2_us['median_salary'].mean()
     raw_data['median_salary'] = raw_data.apply(assign_missing_values_salary,axis=1)
     
+    print('us_mean_ms>',us_mean_ms)
+    print('uk_mean_ms>',uk_mean_ms)
+    print('us_mean_tf>',us_mean_tf)
+    print('uk_mean_tf>',uk_mean_tf)
+    
+    
     raw_data['salary_bins'] = pd.qcut(raw_data['median_salary'],
                                  q=3,
                                  labels=["low","good","excellent"])
