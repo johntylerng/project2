@@ -60,8 +60,7 @@ def predict():
         try:
             input_df =pd.DataFrame(request.json)
             
-
-            predictions = model_utils.predict(X, model, model_columns)
+            predictions = model_utils.predict(input_df, model)
             return jsonify(predictions)
         except Exception as e:
             return jsonify({'error': str(e), 'trace': traceback.format_exc()})

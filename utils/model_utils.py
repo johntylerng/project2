@@ -99,9 +99,15 @@ def train(raw_data):
     return model_columns, model
 
 def predict(df,model):
-    X,raw_data = transform(df)
-    print('enter predict')
-    return
+    X_test, y, _ = transform(df)
+    y_actual = y
+
+    predictions = model.predict(X_test)
+    print("Random Forest Classifier's score:",np.mean(y_actual==y_prediction))
+    predictions = [int(prediction) for prediction in predictions]
+
+    return {'predictions': predictions}
+    
 
 def update(df, model):
     print('enter update')
