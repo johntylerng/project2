@@ -61,7 +61,7 @@ def train(raw_data):
     
     X = raw_data.drop(['world_rank','university_name', 'country', 'total_score',\
                   'student_staff_ratio','international_students','female_male_ratio',\
-                  'year','median_salary','salary_bins','country_group'], axis=1)
+                  'year','median_salary','salary_bins'], axis=1)
 
     features_name = X.columns
     print('features in X:',X.columns)
