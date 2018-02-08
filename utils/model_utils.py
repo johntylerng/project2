@@ -105,7 +105,7 @@ def train(raw_data):
     model_columns = list(features_names)
     
     print('Trained in %.1f seconds' % (time.time() - start))
-    print('Model's validation score: %s' % model.score(X_validate, y_validate))
+    print('Model  validation score: %s' % model.score(X_validate, y_validate))
     
     return model_columns, model
 
