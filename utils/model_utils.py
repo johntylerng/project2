@@ -39,15 +39,15 @@ def train(raw_data):
     us_mean_tf= filtered_data_us['tuition_fee'].mean()
     raw_data['tuition_fee'] = raw_data.apply(assign_missing_values_tuition,axis=1)
     
-    filtered_data_uk = raw_data[raw_data.country == 'United Kingdom']
-    uk_mean_ms= filtered_data_uk['median_salary'].mean()
-    filtered_data_us = raw_data[raw_data.country == 'United States of America']
-    us_mean_ms= filtered_data_us['median_salary'].mean()
+    filtered_data2_uk = raw_data[raw_data.country == 'United Kingdom']
+    uk_mean_ms= filtered_data2_uk['median_salary'].mean()
+    filtered_data2_us = raw_data[raw_data.country == 'United States of America']
+    us_mean_ms= filtered_data2_us['median_salary'].mean()
     raw_data['median_salary'] = raw_data.apply(assign_missing_values_salary,axis=1)
     
     raw_data['salary_bins'] = pd.qcut(raw_data['median_salary'],
-                                 q=4,
-                                 labels=["low","good","excellent"],duplicates='drop')
+                                 q=3,
+                                 labels=["low","good","excellent"])
     raw_data.country = raw_data.country.astype('category')
     raw_data['country_cat'] = raw_data['country'].cat.codes
     
