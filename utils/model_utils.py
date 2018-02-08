@@ -59,6 +59,8 @@ def train(raw_data):
     raw_data.country = raw_data.country.astype('category')
     raw_data['country_cat'] = raw_data['country'].cat.codes
     
+    print('empty>',raw_data.isnull().any())
+    
     X = raw_data.drop(['world_rank','university_name', 'country', 'total_score',\
                   'student_staff_ratio','international_students','female_male_ratio',\
                   'year','median_salary','salary_bins'], axis=1)
