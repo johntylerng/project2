@@ -19,19 +19,47 @@ TRAIN_API = '/train_endpoint'
 TRAIN_MODEL_NO_FILE_API = '/train_endpoint_without_file'
 TRAINING_FILE_PATH = 'data/university_data_2016.csv'
 
-def generate_test_data(df,list,num=50):
-    test_data_1 = df[list]
-    return test_data_1[:num].to_dict('records')
-
-list=['teaching','international outlook','research', 'citations', 'income',
-       'num_students', 'tuition_fee', 'revised_world_rank', 'country_cat']
-
-
-
 
 df= pd.read_csv(TRAINING_FILE_PATH)
 
 TRAINING_DATA = df.to_dict('records')
+
+TEST_DATA=[{'citations': 99.799999999999997,
+  'country_cat': 28.0,
+  'income': 97.799999999999997,
+  'international outlook': 64.0,
+  'num_students': 2243.0,
+  'research': 97.599999999999994,
+  'revised_world_rank': 1.0,
+  'teaching': 95.599999999999994,
+  'tuition_fee': 47577.0},
+ {'citations': 98.799999999999997,
+  'country_cat': 27.0,
+  'income': 73.099999999999994,
+  'international outlook': 94.400000000000006,
+  'num_students': 19919.0,
+  'research': 98.900000000000006,
+  'revised_world_rank': 2.0,
+  'teaching': 86.5,
+  'tuition_fee': 41806.5},
+ {'citations': 99.900000000000006,
+  'country_cat': 28.0,
+  'income': 63.299999999999997,
+  'international outlook': 76.299999999999997,
+  'num_students': 15596.0,
+  'research': 96.200000000000003,
+  'revised_world_rank': 3.0,
+  'teaching': 92.5,
+  'tuition_fee': 47940.0},
+ {'citations': 97.0,
+  'country_cat': 27.0,
+  'income': 55.0,
+  'international outlook': 91.5,
+  'num_students': 18812.0,
+  'research': 96.700000000000003,
+  'revised_world_rank': 4.0,
+  'teaching': 88.200000000000003,
+  'tuition_fee': 45120.0}]
 
 def test_endpoint():
     print('<client>Test connection')
@@ -65,9 +93,8 @@ def train_model():
         
 def predict():
     print("predicting")
-    global list
-    test_data_2= generate_test_data(df,list,4)
-    r= requests.post(API_HOST+PREDICT_API ,json=test_data_2)
+    
+    r= requests.post(API_HOST+PREDICT_API ,json=TEST_DATA)
     
     if r.status_code == 200:
         print(r.text)

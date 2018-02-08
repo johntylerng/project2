@@ -203,8 +203,8 @@ def transform(raw_data):
     y = np.array(y)
     
     
-#    print(X[:3,:])
-#    print(y[:20])
+    print(X[:3,:])
+    print(y[:20])
     
     return X, y, features_name
 
