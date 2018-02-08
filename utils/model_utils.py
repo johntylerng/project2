@@ -22,46 +22,45 @@ uk_mean_ms=0
 us_mean_ms=0
 
 
-
-
 def train(raw_data):
     print("Training data sample:\n", raw_data.head(2))
-    raw_data['revised_world_rank'] = raw_data.apply(extract_hyphen,axis=1)
-    for feature in ['income','total_score','num_students',\
-                    'international_students','student_staff_ratio']:
-        raw_data[feature].fillna(raw_data[feature].mean(), inplace=True )
-    for feature in ['female_male_ratio','tuition_fee','median_salary']:
-        raw_data[feature].fillna(0, inplace=True )
-        
-    filtered_data_uk = raw_data[raw_data.country == 'United Kingdom']
-    uk_mean_tf= filtered_data_uk['tuition_fee'].mean()
-    filtered_data_us = raw_data[raw_data.country == 'United States of America']
-    us_mean_tf= filtered_data_us['tuition_fee'].mean()
-    raw_data['tuition_fee'] = raw_data.apply(assign_missing_values_tuition,axis=1)
-    
-    filtered_data2_uk = raw_data[raw_data.country == 'United Kingdom']
-    uk_mean_ms= filtered_data2_uk['median_salary'].mean()
-    filtered_data2_us = raw_data[raw_data.country == 'United States of America']
-    us_mean_ms= filtered_data2_us['median_salary'].mean()
-    raw_data['median_salary'] = raw_data.apply(assign_missing_values_salary,axis=1)
-    
-#    print('us_mean_ms>',us_mean_ms)
-#    print('uk_mean_ms>',uk_mean_ms)
-#    print('us_mean_tf>',us_mean_tf)
-#    print('uk_mean_tf>',uk_mean_tf)
-    
-#    print(raw_data.head(2))
-    
-#    weight_bins = [12213.999, 30495.769, 38787.259,197400.0]
-#    group_names = ['low', 'good', 'excellent']
-#    raw_data['salary_bins'] = pd.cut(raw_data['median_salary'],weight_bins,\
-#                                  labels=group_names)
-    
-    raw_data['salary_bins'] = raw_data.apply(assign_salary_band,axis=1)
-    raw_data.country = raw_data.country.astype('category')
-    raw_data['country_cat'] = raw_data['country'].cat.codes
-    
-    print('empty>',raw_data.isnull().any())
+#    raw_data['revised_world_rank'] = raw_data.apply(extract_hyphen,axis=1)
+#    for feature in ['income','total_score','num_students',\
+#                    'international_students','student_staff_ratio']:
+#        raw_data[feature].fillna(raw_data[feature].mean(), inplace=True )
+#    for feature in ['female_male_ratio','tuition_fee','median_salary']:
+#        raw_data[feature].fillna(0, inplace=True )
+#        
+#    filtered_data_uk = raw_data[raw_data.country == 'United Kingdom']
+#    uk_mean_tf= filtered_data_uk['tuition_fee'].mean()
+#    filtered_data_us = raw_data[raw_data.country == 'United States of America']
+#    us_mean_tf= filtered_data_us['tuition_fee'].mean()
+#    raw_data['tuition_fee'] = raw_data.apply(assign_missing_values_tuition,axis=1)
+#    
+#    filtered_data2_uk = raw_data[raw_data.country == 'United Kingdom']
+#    uk_mean_ms= filtered_data2_uk['median_salary'].mean()
+#    filtered_data2_us = raw_data[raw_data.country == 'United States of America']
+#    us_mean_ms= filtered_data2_us['median_salary'].mean()
+#    raw_data['median_salary'] = raw_data.apply(assign_missing_values_salary,axis=1)
+#    
+##    print('us_mean_ms>',us_mean_ms)
+##    print('uk_mean_ms>',uk_mean_ms)
+##    print('us_mean_tf>',us_mean_tf)
+##    print('uk_mean_tf>',uk_mean_tf)
+#    
+##    print(raw_data.head(2))
+#    
+##    weight_bins = [12213.999, 30495.769, 38787.259,197400.0]
+##    group_names = ['low', 'good', 'excellent']
+##    raw_data['salary_bins'] = pd.cut(raw_data['median_salary'],weight_bins,\
+##                                  labels=group_names)
+#    
+#    raw_data['salary_bins'] = raw_data.apply(assign_salary_band,axis=1)
+#    raw_data.country = raw_data.country.astype('category')
+#    raw_data['country_cat'] = raw_data['country'].cat.codes
+#    
+#    print('empty>',raw_data.isnull().any())
+    raw_data = transform(raw_data)
     
     X = raw_data.drop(['world_rank','university_name', 'country', 'total_score',\
                   'student_staff_ratio','international_students','female_male_ratio',\
@@ -150,4 +149,41 @@ def assign_salary_band(row):
         return 'good'
     else:
         return 'excellent'
+    
+def transform(raw_data):
+    raw_data['revised_world_rank'] = raw_data.apply(extract_hyphen,axis=1)
+    for feature in ['income','total_score','num_students',\
+                    'international_students','student_staff_ratio']:
+        raw_data[feature].fillna(raw_data[feature].mean(), inplace=True )
+    for feature in ['female_male_ratio','tuition_fee','median_salary']:
+        raw_data[feature].fillna(0, inplace=True )
+        
+    filtered_data_uk = raw_data[raw_data.country == 'United Kingdom']
+    uk_mean_tf= filtered_data_uk['tuition_fee'].mean()
+    filtered_data_us = raw_data[raw_data.country == 'United States of America']
+    us_mean_tf= filtered_data_us['tuition_fee'].mean()
+    raw_data['tuition_fee'] = raw_data.apply(assign_missing_values_tuition,axis=1)
+    
+    filtered_data2_uk = raw_data[raw_data.country == 'United Kingdom']
+    uk_mean_ms= filtered_data2_uk['median_salary'].mean()
+    filtered_data2_us = raw_data[raw_data.country == 'United States of America']
+    us_mean_ms= filtered_data2_us['median_salary'].mean()
+    raw_data['median_salary'] = raw_data.apply(assign_missing_values_salary,axis=1)
+    
+#    print('us_mean_ms>',us_mean_ms)
+#    print('uk_mean_ms>',uk_mean_ms)
+#    print('us_mean_tf>',us_mean_tf)
+#    print('uk_mean_tf>',uk_mean_tf)
+    
+#    print(raw_data.head(2))
+    
+#    weight_bins = [12213.999, 30495.769, 38787.259,197400.0]
+#    group_names = ['low', 'good', 'excellent']
+#    raw_data['salary_bins'] = pd.cut(raw_data['median_salary'],weight_bins,\
+#                                  labels=group_names)
+    
+    raw_data['salary_bins'] = raw_data.apply(assign_salary_band,axis=1)
+    raw_data.country = raw_data.country.astype('category')
+    raw_data['country_cat'] = raw_data['country'].cat.codes
+    return raw_data
 

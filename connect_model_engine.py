@@ -19,6 +19,16 @@ TRAIN_API = '/train_endpoint'
 TRAIN_MODEL_NO_FILE_API = '/train_endpoint_without_file'
 TRAINING_FILE_PATH = 'data/university_data_2016.csv'
 
+def generate_test_data(df,list,num=50):
+    test_data_1 = df[list]
+    return test_data_1[:num].to_dict('records')
+
+list=['teaching','international outlook','research', 'citations', 'income',
+       'num_students', 'tuition_fee', 'revised_world_rank', 'country_cat']
+
+
+
+
 df= pd.read_csv(TRAINING_FILE_PATH)
 
 TRAINING_DATA = df.to_dict('records')
@@ -47,6 +57,17 @@ def train_model():
     print("Trying train endpoint...")
     
     r = requests.post(API_HOST + TRAIN_API,json=TRAINING_DATA)
+    
+    if r.status_code == 200:
+        print(r.text)
+    else:
+        print("Status code indicates a problem:", r.status_code)
+        
+def predict():
+    print("predicting")
+    global list
+    test_data_2= generate_test_data(raw_data,list,4)
+    r= requests.post(API_HOST+PREDICT_API ,json=test_data_2)
     
     if r.status_code == 200:
         print(r.text)
