@@ -108,15 +108,15 @@ def predict(df,model):
 
     return {'predictions': predictions}
     
-
-def update(df, model):
-    print('enter update')
-    X,y,features_name = transform(raw_data)
-    
-    np.random.seed(42)
-    model.partialfit(X,y)
-    
-    return model
+#
+#def update(df, model):
+#    print('enter update')
+#    X,y,features_name = transform(raw_data)
+#    
+#    np.random.seed(42)
+#    model.partialfit(X,y)
+#    
+#    return model
 
 
 def extract_hyphen(row):

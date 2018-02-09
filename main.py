@@ -52,18 +52,18 @@ def train_model_without_file():
     
     return 'success: from train_model_without_file'
 
-@app.route('/update_model', methods=['POST'])
-def update_model():
-    print('updating model...wait')
-    try:
-        df= pd.DataFrame(request.json)
-    except Exception as e:
-        return jsonify({'error': str(e), 'trace': traceback.format_exc()})
-    
-    global model_columns, model
-    model = model_utils.update(df)
-    
-    return 'success:model updated'
+#@app.route('/update_model', methods=['POST'])
+#def update_model():
+#    print('updating model...wait')
+#    try:
+#        df= pd.DataFrame(request.json)
+#    except Exception as e:
+#        return jsonify({'error': str(e), 'trace': traceback.format_exc()})
+#    
+#    global model_columns, model
+#    model = model_utils.update(df)
+#    
+#    return 'success:model updated'
 
 
 @app.route('/predict',methods=['POST'])

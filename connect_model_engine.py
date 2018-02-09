@@ -101,16 +101,16 @@ def predict():
         print(r.text)
     else:
         print("Status code indicates a problem:", r.status_code)
-        
-def update_model_with_new_data():
-    print("Sending new data to train model...")
-    
-    r = requests.post(API_HOST + UPDATE_MODEL_API,json=NEW_TRAINING_DATA)
-    
-    if r.status_code == 200:
-        print(r.text)
-    else:
-        print("Status code indicates a problem:", r.status_code)
+#        
+#def update_model_with_new_data():
+#    print("Sending new data to train model...")
+#    
+#    r = requests.post(API_HOST + UPDATE_MODEL_API,json=NEW_TRAINING_DATA)
+#    
+#    if r.status_code == 200:
+#        print(r.text)
+#    else:
+#        print("Status code indicates a problem:", r.status_code)
 
 
 
